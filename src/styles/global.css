@@ -1,0 +1,49 @@
+@import './tokens.css';
+@import './game.css';
+
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--sigma-paper); }
+body {
+  margin: 0;
+  color: var(--sigma-ink);
+  background-color: var(--sigma-paper);
+  background-image: radial-gradient(rgb(11 78 101 / 9%) 1px, transparent 1px);
+  background-size: 8px 8px;
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+button, input, textarea { font: inherit; }
+
+/* Interactive focus indicators (buttons, inputs, links) */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 3px dashed var(--sigma-copper);
+  outline-offset: 4px;
+}
+
+/* Remove focus outline from container landmarks */
+main:focus,
+main:focus-visible,
+.sigma-main-content:focus,
+.sigma-main-content:focus-visible,
+.sigma-app-wrapper:focus,
+.sigma-app-wrapper:focus-visible,
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
+  outline: none !important;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-pixel); line-height: 1.45; }
+code { padding: 2px 5px; background: var(--sigma-blush); font-family: var(--font-body); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

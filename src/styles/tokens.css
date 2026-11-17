@@ -1,0 +1,26 @@
+:root {
+  color-scheme: light;
+  --sigma-ink: #0b4e65;
+  --sigma-blue: #407f9e;
+  --sigma-blush: #e2c9ca;
+  --sigma-clay: #d8a896;
+  --sigma-copper: #b57c52;
+  --sigma-paper: #f5eee7;
+  --sigma-white: #fffaf4;
+  --sigma-muted: #54717a;
+  --sigma-border: 3px solid var(--sigma-ink);
+  --sigma-shadow: 5px 5px 0 var(--sigma-ink);
+
+  /* Shorthand aliases identical to robot-learning-game */
+  --ink: var(--sigma-ink);
+  --blue: var(--sigma-blue);
+  --blush: var(--sigma-blush);
+  --clay: var(--sigma-clay);
+  --copper: var(--sigma-copper);
+  --paper: var(--sigma-paper);
+  --white: var(--sigma-white);
+  --muted: var(--sigma-muted);
+
+  --font-pixel: 'Press Start 2P', 'Courier New', monospace;
+  --font-body: 'Space Mono', 'Courier New', monospace;
+}
