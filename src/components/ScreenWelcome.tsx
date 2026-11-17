@@ -28,7 +28,7 @@ export const ScreenWelcome: React.FC<ScreenWelcomeProps> = ({
 
         <div className="welcome-main-layout">
           <div className="welcome-robot-slot">
-            <RobotInspector mood="curious" size={110} speech={t.robotWelcome} />
+            <RobotInspector mood="curious" size={92} speech={t.robotWelcome} />
           </div>
 
           <div className="welcome-content">

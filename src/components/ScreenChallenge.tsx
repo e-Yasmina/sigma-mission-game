@@ -137,7 +137,7 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
 
         {/* Right/Side Panel: Robot Inspector & In-place Feedback */}
         <aside className="challenge-feedback-panel" aria-label="Assistance et retour d’expertise">
-          <RobotInspector mood={robotMood} size={96} speech={robotSpeech} />
+          <RobotInspector mood={robotMood} size={80} speech={robotSpeech} />
 
           {/* Tools & Hints */}
           <div className="helper-toggles">
