@@ -19,7 +19,7 @@ interface StepInfo {
 }
 
 const STEPS: StepInfo[] = [
-  { screen: 1, labelFr: 'Accueil', labelEn: 'Welcome', shortLabelFr: 'Intro', shortLabelEn: 'Intro' },
+  { screen: 1, labelFr: 'Accueil', labelEn: 'Welcome', shortLabelFr: 'A', shortLabelEn: 'W' },
   { screen: 2, labelFr: 'Défi 1', labelEn: 'Challenge 1', shortLabelFr: 'D1', shortLabelEn: 'C1', mission: 'M1', challengeId: 'D1' },
   { screen: 3, labelFr: 'Défi 2', labelEn: 'Challenge 2', shortLabelFr: 'D2', shortLabelEn: 'C2', mission: 'M1', challengeId: 'D2' },
   { screen: 4, labelFr: 'Défi 3', labelEn: 'Challenge 3', shortLabelFr: 'D3', shortLabelEn: 'C3', mission: 'M2', challengeId: 'D3' },
@@ -28,7 +28,7 @@ const STEPS: StepInfo[] = [
   { screen: 7, labelFr: 'Défi 6', labelEn: 'Challenge 6', shortLabelFr: 'D6', shortLabelEn: 'C6', mission: 'M3', challengeId: 'D6' },
   { screen: 8, labelFr: 'Défi 7', labelEn: 'Challenge 7', shortLabelFr: 'D7', shortLabelEn: 'C7', mission: 'M4', challengeId: 'D7' },
   { screen: 9, labelFr: 'Défi 8', labelEn: 'Challenge 8', shortLabelFr: 'D8', shortLabelEn: 'C8', mission: 'M4', challengeId: 'D8' },
-  { screen: 10, labelFr: 'Bilan', labelEn: 'Verdict', shortLabelFr: 'Bilan', shortLabelEn: 'Verdict' },
+  { screen: 10, labelFr: 'Bilan', labelEn: 'Verdict', shortLabelFr: 'B', shortLabelEn: 'V' },
 ];
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ currentScreen, answers, lang }) => {

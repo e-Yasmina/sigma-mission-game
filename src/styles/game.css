@@ -393,8 +393,17 @@
   background: var(--sigma-white);
   position: relative;
   z-index: 2;
-  font-size: clamp(8.5px, 1vh, 10px);
-  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.step-num {
+  font-family: var(--font-pixel);
+  font-size: clamp(8px, 0.95vh, 9.5px);
+  line-height: 1;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .step-upcoming .step-marker {

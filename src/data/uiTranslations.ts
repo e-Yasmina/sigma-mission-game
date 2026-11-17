@@ -124,9 +124,9 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
     progress: {
       progressAria: 'Progression du parcours (10 écrans)',
       introLabel: 'Accueil',
-      introShort: 'Intro',
+      introShort: 'A',
       bilanLabel: 'Bilan',
-      bilanShort: 'Bilan',
+      bilanShort: 'B',
     },
     welcome: {
       dossierNumber: 'DOSSIER D’EXPERTISE N°2026-SIGMA',
@@ -270,9 +270,9 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
     progress: {
       progressAria: 'Protocol progress (10 screens)',
       introLabel: 'Welcome',
-      introShort: 'Intro',
+      introShort: 'W',
       bilanLabel: 'Verdict',
-      bilanShort: 'Verdict',
+      bilanShort: 'V',
     },
     welcome: {
       dossierNumber: 'EXPERT REVIEW DOSSIER #2026-SIGMA',
