@@ -691,6 +691,73 @@
   font-weight: 700;
 }
 
+/* Negative space filler with animated colored dashed line */
+.mission-card-filler {
+  flex: 1;
+  min-height: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  padding: clamp(4px, 0.8vh, 10px) 0;
+  overflow: hidden;
+}
+
+.mission-animated-dash-line {
+  width: 100%;
+  height: 3px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--sigma-blue) 0px,
+    var(--sigma-blue) 12px,
+    transparent 12px,
+    transparent 18px,
+    var(--sigma-copper) 18px,
+    var(--sigma-copper) 30px,
+    transparent 30px,
+    transparent 36px,
+    var(--sigma-clay) 36px,
+    var(--sigma-clay) 48px,
+    transparent 48px,
+    transparent 54px,
+    var(--sigma-ink) 54px,
+    var(--sigma-ink) 66px,
+    transparent 66px,
+    transparent 72px,
+    var(--sigma-blush) 72px,
+    var(--sigma-blush) 84px,
+    transparent 84px,
+    transparent 90px
+  );
+  background-size: 90px 3px;
+  animation: colorDashPulse 3.2s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes colorDashPulse {
+  0% {
+    background-position: 0 0;
+    filter: saturate(1);
+  }
+  50% {
+    filter: saturate(1.3) brightness(1.1);
+  }
+  100% {
+    background-position: 90px 0;
+    filter: saturate(1);
+  }
+}
+
+.mission-preview-card:hover .mission-animated-dash-line,
+.mission-preview-card:focus .mission-animated-dash-line,
+.mission-preview-card.is-active .mission-animated-dash-line {
+  opacity: 1;
+  height: 3.5px;
+  animation-duration: 1.6s;
+  filter: saturate(1.45) brightness(1.15);
+}
+
 /* Hover Popover Briefing */
 .mission-preview-popover {
   position: absolute;

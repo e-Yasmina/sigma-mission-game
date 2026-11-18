@@ -67,6 +67,11 @@ export const ScreenWelcome: React.FC<ScreenWelcomeProps> = ({
                   <h3 className="mission-preview-title">{m.title}</h3>
                 </div>
 
+                {/* Animated colored dashed line in negative space */}
+                <div className="mission-card-filler" aria-hidden="true">
+                  <div className="mission-animated-dash-line" />
+                </div>
+
                 <div className="mission-hover-cue">
                   <span className="cue-icon" aria-hidden="true">ℹ️</span>
                   <span className="cue-text">{t.missionHoverHint}</span>
