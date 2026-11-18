@@ -1,6 +1,3 @@
-@import './tokens.css';
-@import './game.css';
-
 * { box-sizing: border-box; }
 html { min-width: 320px; background: var(--sigma-paper); }
 body {
