@@ -10,6 +10,7 @@ interface AppHeaderProps {
   onOpenGlossary: () => void;
   onOpenDossier: () => void;
   onResetGame: () => void;
+  onCollapse?: () => void;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -20,6 +21,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   onOpenGlossary,
   onOpenDossier,
   onResetGame,
+  onCollapse,
 }) => {
   const t = UI_TRANSLATIONS[lang].header;
 
@@ -87,6 +89,17 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               aria-label={lang === 'fr' ? 'Recommencer la mission' : 'Restart the mission'}
             >
               {t.resetBtn}
+            </button>
+          )}
+          {onCollapse && (
+            <button
+              type="button"
+              className="btn-header-tool btn-header-collapse"
+              onClick={onCollapse}
+              aria-label={lang === 'fr' ? 'Masquer l’en-tête et le menu pour agrandir l’espace' : 'Collapse header & menu to save height'}
+              title={lang === 'fr' ? 'Réduire l’en-tête en petit bouton pour gagner de la hauteur' : 'Collapse header & menu into small button to save height'}
+            >
+              {t.collapseBtn}
             </button>
           )}
         </nav>

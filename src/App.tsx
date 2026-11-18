@@ -40,6 +40,7 @@ export default function App() {
   const [transferReflection, setTransferReflection] = useState<string>('');
   const [isGlossaryOpen, setIsGlossaryOpen] = useState<boolean>(false);
   const [isDossierOpen, setIsDossierOpen] = useState<boolean>(false);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState<boolean>(false);
 
   const mainRegionRef = useRef<HTMLElement>(null);
 
@@ -52,15 +53,25 @@ export default function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     mainRegionRef.current?.focus();
+
+    // On challenge screens (screens 2..9), collapse header & menu to small button to maximize height and prevent scrolling
+    if (currentScreen >= 2 && currentScreen <= 9) {
+      setIsHeaderCollapsed(true);
+    } else {
+      setIsHeaderCollapsed(false);
+    }
   }, [currentScreen]);
 
   const handleStart = () => {
     setCurrentScreen(2);
+    setIsHeaderCollapsed(true);
   };
 
   const handleAnswer = (challengeId: ChallengeId, choice: ChoiceKey) => {
     setAnswers((prev) => ({ ...prev, [challengeId]: choice }));
     setAttempts((prev) => ({ ...prev, [challengeId]: prev[challengeId] + 1 }));
+    // Ensure header is collapsed into small button when feedback is displayed so right section never scrolls
+    setIsHeaderCollapsed(true);
   };
 
   const handleNextScreen = () => {
@@ -89,19 +100,90 @@ export default function App() {
   const currentChallengeId =
     currentScreen >= 2 && currentScreen <= 9 ? CHALLENGE_ORDER[currentScreen - 2] : null;
 
-  return (
-    <div className="sigma-app-wrapper">
-      <AppHeader
-        currentScreen={currentScreen}
-        totalScreens={10}
-        lang={lang}
-        onToggleLang={setLang}
-        onOpenGlossary={() => setIsGlossaryOpen(true)}
-        onOpenDossier={() => setIsDossierOpen(true)}
-        onResetGame={handleResetGame}
-      />
+  const tHeader = UI_TRANSLATIONS[lang].header;
 
-      <ProgressBar currentScreen={currentScreen} answers={answers} lang={lang} />
+  return (
+    <div className={`sigma-app-wrapper ${isHeaderCollapsed ? 'is-header-collapsed' : ''}`}>
+      {isHeaderCollapsed ? (
+        <div className="header-collapsed-strip" role="toolbar" aria-label="Menu compact">
+          <button
+            type="button"
+            className="btn-expand-header"
+            onClick={() => setIsHeaderCollapsed(false)}
+            aria-expanded="false"
+            title={lang === 'fr' ? 'Agrandir le menu et la progression' : 'Expand header and progress'}
+          >
+            <span className="expand-chevron" aria-hidden="true">▾</span>
+            <span className="expand-text">{tHeader.expandBtn}</span>
+            <span className="expand-badge">{currentScreen}/10</span>
+          </button>
+
+          <div className="collapsed-tools">
+            <button
+              type="button"
+              className="btn-collapsed-tool"
+              onClick={() => setIsDossierOpen(true)}
+              title={lang === 'fr' ? 'Consulter le dossier d’audit' : 'Review case file'}
+            >
+              📋 {tHeader.dossierBtn.replace(/^[^\s]+\s*/, '')}
+            </button>
+            <button
+              type="button"
+              className="btn-collapsed-tool"
+              onClick={() => setIsGlossaryOpen(true)}
+              title={lang === 'fr' ? 'Consulter le glossaire méthodologique' : 'Open methodology glossary'}
+            >
+              📖 {tHeader.glossaryBtn.replace(/^[^\s]+\s*/, '')}
+            </button>
+
+            <div className="lang-switcher lang-switcher-mini" role="group" aria-label={tHeader.langAria}>
+              <button
+                type="button"
+                className={`btn-lang-toggle ${lang === 'fr' ? 'is-active' : ''}`}
+                onClick={() => setLang('fr')}
+                title="Passer en Français"
+              >
+                FR
+              </button>
+              <span className="lang-divider" aria-hidden="true">|</span>
+              <button
+                type="button"
+                className={`btn-lang-toggle ${lang === 'en' ? 'is-active' : ''}`}
+                onClick={() => setLang('en')}
+                title="Switch to English"
+              >
+                EN
+              </button>
+            </div>
+
+            {currentScreen > 1 && (
+              <button
+                type="button"
+                className="btn-collapsed-tool"
+                onClick={handleResetGame}
+                title={lang === 'fr' ? 'Recommencer la mission' : 'Restart the mission'}
+              >
+                ↺
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <AppHeader
+            currentScreen={currentScreen}
+            totalScreens={10}
+            lang={lang}
+            onToggleLang={setLang}
+            onOpenGlossary={() => setIsGlossaryOpen(true)}
+            onOpenDossier={() => setIsDossierOpen(true)}
+            onResetGame={handleResetGame}
+            onCollapse={() => setIsHeaderCollapsed(true)}
+          />
+
+          <ProgressBar currentScreen={currentScreen} answers={answers} lang={lang} />
+        </>
+      )}
 
       <main
         id="main-content"

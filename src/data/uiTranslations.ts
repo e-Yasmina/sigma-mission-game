@@ -11,6 +11,8 @@ export interface UiStrings {
     resetBtn: string;
     resetConfirm: string;
     langAria: string;
+    collapseBtn: string;
+    expandBtn: string;
   };
   progress: {
     progressAria: string;
@@ -124,6 +126,8 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
       resetBtn: '↺ Recommencer',
       resetConfirm: 'Voulez-vous réinitialiser votre progression et recommencer la mission à l’accueil ?',
       langAria: 'Changer la langue d’affichage',
+      collapseBtn: '▴ Réduire',
+      expandBtn: '▾ Menu & Progression',
     },
     progress: {
       progressAria: 'Progression du parcours (10 écrans)',
@@ -274,6 +278,8 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
       resetBtn: '↺ Restart',
       resetConfirm: 'Do you want to reset your progress and restart the mission from the beginning?',
       langAria: 'Switch display language',
+      collapseBtn: '▴ Collapse',
+      expandBtn: '▾ Menu & Progress',
     },
     progress: {
       progressAria: 'Protocol progress (10 screens)',
