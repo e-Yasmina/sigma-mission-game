@@ -32,7 +32,11 @@ export interface UiStrings {
       title: string;
       desc: string;
     }[];
+    missionHoverHint: string;
+    missionBriefingTag: string;
     rulesTitle: string;
+    rulesHintClosed: string;
+    rulesHintOpen: string;
     rules: {
       strong: string;
       text: string;
@@ -161,7 +165,11 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
           desc: 'Distinguer satisfaction et compétence, puis formuler un avis éthique sur les données et le consentement.',
         },
       ],
+      missionHoverHint: 'Survoler pour le briefing',
+      missionBriefingTag: 'BRIEFING DE MISSION',
       rulesTitle: 'Règles du protocole d’évaluation',
+      rulesHintClosed: '4 règles d’audit · Cliquer pour afficher',
+      rulesHintOpen: 'Masquer les règles',
       rules: [
         {
           strong: '8 décisions réparties sur 4 missions :',
@@ -307,7 +315,11 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
           desc: 'Distinguish satisfaction from competence, then establish ethical safeguards for data and informed consent.',
         },
       ],
+      missionHoverHint: 'Hover for briefing',
+      missionBriefingTag: 'MISSION BRIEFING',
       rulesTitle: 'Audit Protocol Guidelines',
+      rulesHintClosed: '4 audit guidelines · Click to expand',
+      rulesHintOpen: 'Hide guidelines',
       rules: [
         {
           strong: '8 decisions across 4 missions:',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SupportedLanguage } from '../types';
 import { UI_TRANSLATIONS } from '../data/uiTranslations';
 import { RobotInspector } from './RobotInspector';
@@ -17,6 +17,8 @@ export const ScreenWelcome: React.FC<ScreenWelcomeProps> = ({
   onOpenGlossary,
 }) => {
   const t = UI_TRANSLATIONS[lang].welcome;
+  const [isRulesExpanded, setIsRulesExpanded] = useState<boolean>(false);
+  const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
 
   return (
     <div className="screen-welcome-container">
@@ -41,26 +43,84 @@ export const ScreenWelcome: React.FC<ScreenWelcomeProps> = ({
           </div>
         </div>
 
-        <div className="welcome-missions-grid">
-          {t.missions.map((m, idx) => (
-            <div key={idx} className="mission-preview-card">
-              <div className="mission-preview-tag">{m.tag}</div>
-              <h3 className="mission-preview-title">{m.title}</h3>
-              <p className="mission-preview-desc">{m.desc}</p>
-            </div>
-          ))}
+        {/* 4 Mission Cards with Sub-text revealed on Hover/Focus */}
+        <div className="welcome-missions-grid" role="region" aria-label="Missions overview">
+          {t.missions.map((m, idx) => {
+            const isActive = activeTooltip === idx;
+            return (
+              <div
+                key={idx}
+                className={`mission-preview-card ${isActive ? 'is-active' : ''}`}
+                onMouseEnter={() => setActiveTooltip(idx)}
+                onMouseLeave={() => setActiveTooltip(null)}
+                onFocus={() => setActiveTooltip(idx)}
+                onBlur={() => setActiveTooltip(null)}
+                onClick={() => setActiveTooltip(isActive ? null : idx)}
+                tabIndex={0}
+                role="button"
+                aria-haspopup="dialog"
+                aria-expanded={isActive}
+                aria-label={`${m.tag}: ${m.title}. ${m.desc}`}
+              >
+                <div className="mission-card-content">
+                  <div className="mission-preview-tag">{m.tag}</div>
+                  <h3 className="mission-preview-title">{m.title}</h3>
+                </div>
+
+                <div className="mission-hover-cue">
+                  <span className="cue-icon" aria-hidden="true">ℹ️</span>
+                  <span className="cue-text">{t.missionHoverHint}</span>
+                </div>
+
+                {/* Floating Popover / Briefing on Hover */}
+                <div
+                  className={`mission-preview-popover popover-pos-${idx + 1}`}
+                  role="tooltip"
+                  aria-hidden={!isActive}
+                >
+                  <div className="popover-header">
+                    <span className="popover-badge">{t.missionBriefingTag}</span>
+                    <span className="popover-mission-name">{m.tag} : {m.title}</span>
+                  </div>
+                  <p className="popover-desc">{m.desc}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="welcome-rules-box">
-          <h3 className="rules-heading">{t.rulesTitle}</h3>
-          <ul className="rules-list">
-            {t.rules.map((rule, idx) => (
-              <li key={idx}>
-                <strong>{rule.strong}</strong>
-                {rule.text}
-              </li>
-            ))}
-          </ul>
+        {/* Audit Protocol Guidelines: Closed Accordion by default */}
+        <div className={`welcome-rules-accordion ${isRulesExpanded ? 'is-expanded' : 'is-collapsed'}`}>
+          <button
+            type="button"
+            className="rules-accordion-trigger"
+            onClick={() => setIsRulesExpanded(!isRulesExpanded)}
+            aria-expanded={isRulesExpanded}
+            aria-controls="welcome-rules-content"
+          >
+            <div className="rules-accordion-left">
+              <span className="rules-accordion-icon" aria-hidden="true">
+                {isRulesExpanded ? '▼' : '▶'}
+              </span>
+              <h3 className="rules-heading">{t.rulesTitle}</h3>
+            </div>
+            <span className="rules-accordion-hint">
+              {isRulesExpanded ? t.rulesHintOpen : t.rulesHintClosed}
+            </span>
+          </button>
+
+          {isRulesExpanded && (
+            <div id="welcome-rules-content" className="rules-accordion-content" role="region">
+              <ul className="rules-list">
+                {t.rules.map((rule, idx) => (
+                  <li key={idx}>
+                    <strong>{rule.strong}</strong>
+                    {rule.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="welcome-actions">
