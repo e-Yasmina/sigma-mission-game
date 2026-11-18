@@ -137,97 +137,98 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
 
         {/* Right/Side Panel: Robot Inspector & In-place Feedback */}
         <aside className="challenge-feedback-panel" aria-label="Assistance et retour d’expertise">
-          <RobotInspector mood={robotMood} size={80} speech={robotSpeech} />
+          <div className="challenge-feedback-console">
+            <RobotInspector mood={robotMood} size={100} speech={robotSpeech} />
 
-          {/* Tools & Hints */}
-          <div className="helper-toggles">
-            <button
-              type="button"
-              className={`btn-helper ${showHint ? 'is-active' : ''}`}
-              onClick={() => setShowHint(!showHint)}
-              aria-expanded={showHint}
-            >
-              {showHint ? t.hintBtnHide : t.hintBtnShow}
-            </button>
-            <button
-              type="button"
-              className={`btn-helper ${showWhy ? 'is-active' : ''}`}
-              onClick={() => setShowWhy(!showWhy)}
-              aria-expanded={showWhy}
-            >
-              {showWhy ? t.whyBtnHide : t.whyBtnShow}
-            </button>
-          </div>
-
-          {showHint && (
-            <div className="hint-card" role="note" aria-label={t.hintTag}>
-              <span className="hint-tag">{t.hintTag}</span>
-              <p>{challenge.hint}</p>
-            </div>
-          )}
-
-          {showWhy && (
-            <div className="why-card" role="note" aria-label={t.whyTag}>
-              <span className="why-tag">{t.whyTag}</span>
-              <p>{challenge.whyItMatters}</p>
-            </div>
-          )}
-
-          {/* Feedback Display Area (live region) */}
-          <div className="feedback-live-region" aria-live="polite" aria-atomic="true">
-            {hasAnswered && (
-              <div
-                className={`feedback-card ${
-                  isCorrect ? 'feedback-card-success' : 'feedback-card-retry'
-                }`}
+            {/* Tools & Hints */}
+            <div className="helper-toggles">
+              <button
+                type="button"
+                className={`btn-helper ${showHint ? 'is-active' : ''}`}
+                onClick={() => setShowHint(!showHint)}
+                aria-expanded={showHint}
               >
-                <div className="feedback-status-banner">
-                  {isCorrect ? (
-                    <>
-                      <span className="status-icon" aria-hidden="true">
-                        ✔
-                      </span>
-                      <strong>{t.feedbackOptimal}</strong>
-                    </>
-                  ) : (
-                    <>
-                      <span className="status-icon" aria-hidden="true">
-                        ⚠
-                      </span>
-                      <strong>{t.feedbackWeakness}</strong>
-                    </>
-                  )}
-                </div>
+                {showHint ? t.hintBtnHide : t.hintBtnShow}
+              </button>
+              <button
+                type="button"
+                className={`btn-helper ${showWhy ? 'is-active' : ''}`}
+                onClick={() => setShowWhy(!showWhy)}
+                aria-expanded={showWhy}
+              >
+                {showWhy ? t.whyBtnHide : t.whyBtnShow}
+              </button>
+            </div>
 
-                <p className="feedback-explanation">
-                  {isCorrect ? challenge.feedbackSuccess : challenge.feedbackRetry}
-                </p>
-
-                {/* Navigation actions after feedback */}
-                <div className="feedback-action-bar">
-                  {!isCorrect && (
-                    <button
-                      type="button"
-                      className="btn-action-retry"
-                      onClick={handleRetry}
-                    >
-                      {t.retryBtn}
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    className="btn-action-continue"
-                    onClick={onNext}
-                  >
-                    {challenge.id === 'D8'
-                      ? t.continueBilan
-                      : isCorrect
-                      ? t.continueNext
-                      : t.continueAnyway}
-                  </button>
-                </div>
+            {showHint && (
+              <div className="hint-card" role="note" aria-label={t.hintTag}>
+                <span className="hint-tag">{t.hintTag}</span>
+                <p>{challenge.hint}</p>
               </div>
             )}
+
+            {showWhy && (
+              <div className="why-card" role="note" aria-label={t.whyTag}>
+                <span className="why-tag">{t.whyTag}</span>
+                <p>{challenge.whyItMatters}</p>
+              </div>
+            )}
+
+            {/* Feedback Display Area (live region) */}
+            <div className="feedback-live-region" aria-live="polite" aria-atomic="true">
+              {hasAnswered && (
+                <div
+                  className={`feedback-card ${isCorrect ? 'feedback-card-success' : 'feedback-card-retry'
+                    }`}
+                >
+                  <div className="feedback-status-banner">
+                    {isCorrect ? (
+                      <>
+                        <span className="status-icon" aria-hidden="true">
+                          ✔
+                        </span>
+                        <strong>{t.feedbackOptimal}</strong>
+                      </>
+                    ) : (
+                      <>
+                        <span className="status-icon" aria-hidden="true">
+                          ⚠
+                        </span>
+                        <strong>{t.feedbackWeakness}</strong>
+                      </>
+                    )}
+                  </div>
+
+                  <p className="feedback-explanation">
+                    {isCorrect ? challenge.feedbackSuccess : challenge.feedbackRetry}
+                  </p>
+
+                  {/* Navigation actions after feedback */}
+                  <div className="feedback-action-bar">
+                    {!isCorrect && (
+                      <button
+                        type="button"
+                        className="btn-action-retry"
+                        onClick={handleRetry}
+                      >
+                        {t.retryBtn}
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      className="btn-action-continue"
+                      onClick={onNext}
+                    >
+                      {challenge.id === 'D8'
+                        ? t.continueBilan
+                        : isCorrect
+                          ? t.continueNext
+                          : t.continueAnyway}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </aside>
       </div>

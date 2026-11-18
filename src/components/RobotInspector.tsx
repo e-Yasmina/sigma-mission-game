@@ -168,7 +168,12 @@ export const RobotInspector: React.FC<RobotInspectorProps> = ({
         width={size}
         height={(size * 58) / 54}
         shapeRendering="crispEdges"
-        style={{ imageRendering: 'pixelated' }}
+        style={{
+          imageRendering: 'pixelated',
+          width: size ? `${size}px` : undefined,
+          height: 'auto',
+          maxWidth: '100%',
+        }}
         className={`sigma-robot-svg mood-${mood}`}
       >
         {/* Antenna */}

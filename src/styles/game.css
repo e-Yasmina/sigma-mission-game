@@ -486,7 +486,7 @@
 
 .sigma-robot-svg {
   display: block;
-  width: clamp(68px, 8.5vh, 108px);
+  max-width: 100%;
   height: auto;
   aspect-ratio: 54 / 58;
   filter: drop-shadow(2px 2px 0 var(--sigma-ink));
@@ -517,7 +517,8 @@
   content: '';
   position: absolute;
   top: -6px;
-  left: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
@@ -1098,7 +1099,7 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
   gap: clamp(12px, 1.6vw, 24px);
   align-items: stretch;
   overflow: hidden;
@@ -1239,34 +1240,58 @@
   border-style: dashed;
 }
 
-/* Challenge Feedback Panel: Centered vertically and horizontally */
+/* Challenge Feedback Panel: Scrollable container for the inspector console */
 .challenge-feedback-panel {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 1.4vh, 16px);
   overflow-y: auto;
-  padding: clamp(6px, 1vh, 12px) clamp(8px, 1vw, 16px);
+  overflow-x: hidden;
+  padding: clamp(4px, 0.8vh, 12px) clamp(6px, 0.8vw, 14px);
   box-sizing: border-box;
 }
 
-/* Bulletproof flexbox centering that gracefully scrolls when overflowing */
-.challenge-feedback-panel::before,
-.challenge-feedback-panel::after {
-  content: '';
-  margin: auto;
-}
-
-/* Helper Toggles: Stacked buttons under each other */
-.helper-toggles {
+/* Challenge Feedback Console: Centered vertically & horizontally with auto margins */
+.challenge-feedback-console {
+  width: 100%;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 0.8vh, 8px);
+  align-items: center;
+  gap: clamp(8px, 1.3vh, 14px);
+  margin-top: auto;
+  margin-bottom: auto;
+  box-sizing: border-box;
+}
+
+/* Compact robot avatar and speech in challenge slide */
+.screen-challenge-container .sigma-robot-container {
+  gap: 4px;
+  flex-shrink: 0;
   width: 100%;
-  max-width: 340px;
+}
+
+.screen-challenge-container .sigma-robot-svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.screen-challenge-container .sigma-robot-speech {
+  padding: clamp(4px, 0.6vh, 8px) clamp(8px, 0.8vw, 12px);
+  font-size: clamp(9.5px, 0.5vw + 0.3vh, 11px);
+  line-height: 1.3;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Helper Toggles: Fit in the same line (side-by-side in 1 row) */
+.helper-toggles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(6px, 0.8vw, 10px);
+  width: 100%;
   flex-shrink: 0;
 }
 
@@ -1275,18 +1300,19 @@
   background: var(--sigma-paper);
   border: 2px solid var(--sigma-ink);
   box-shadow: 2px 2px 0 var(--sigma-ink);
-  padding: clamp(6px, 0.8vh, 10px) clamp(10px, 1vw, 14px);
-  font-size: clamp(10px, 0.55vw + 0.35vh, 11.5px);
+  padding: clamp(5px, 0.7vh, 8px) clamp(6px, 0.6vw, 10px);
+  font-size: clamp(9px, 0.5vw + 0.3vh, 10.5px);
   font-weight: 700;
   text-align: center;
   color: var(--sigma-ink);
   transition: background 0.15s ease, transform 0.1s ease;
-  min-height: clamp(32px, 4vh, 38px);
+  min-height: clamp(28px, 3.6vh, 34px);
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .btn-helper:hover {
@@ -1307,23 +1333,23 @@
 .hint-card,
 .why-card {
   width: 100%;
-  max-width: 340px;
   background: var(--sigma-white);
   border: 2px solid var(--sigma-ink);
   box-shadow: 2px 2px 0 var(--sigma-ink);
-  padding: clamp(6px, 1vh, 10px) clamp(10px, 1vw, 14px);
-  font-size: clamp(10.5px, 0.55vw + 0.45vh, 12px);
-  line-height: 1.4;
-  max-height: clamp(85px, 15vh, 160px);
+  padding: clamp(4px, 0.7vh, 8px) clamp(8px, 0.9vw, 12px);
+  font-size: clamp(9.5px, 0.5vw + 0.3vh, 11px);
+  line-height: 1.35;
+  max-height: clamp(65px, 10vh, 100px);
   overflow-y: auto;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .hint-tag,
 .why-tag {
   display: block;
   font-family: var(--font-pixel);
-  font-size: 7.5px;
+  font-size: 7px;
   color: var(--sigma-copper);
   margin-bottom: 2px;
 }
@@ -1337,17 +1363,17 @@
 /* Feedback Live Card */
 .feedback-live-region {
   width: 100%;
-  max-width: 340px;
   flex-shrink: 0;
 }
 
 .feedback-card {
   border: 2px solid var(--sigma-ink);
-  box-shadow: 3px 3px 0 var(--sigma-ink);
-  padding: clamp(8px, 1.2vh, 14px) clamp(10px, 1.2vw, 14px);
+  box-shadow: 2px 2px 0 var(--sigma-ink);
+  padding: clamp(6px, 0.9vh, 10px) clamp(8px, 1vw, 12px);
   display: flex;
   flex-direction: column;
-  gap: clamp(4px, 0.8vh, 8px);
+  gap: clamp(3px, 0.5vh, 6px);
+  box-sizing: border-box;
 }
 
 .feedback-card-success {
@@ -1364,40 +1390,51 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: clamp(11px, 0.6vw + 0.4vh, 12.5px);
+  font-size: clamp(10px, 0.55vw + 0.35vh, 11.5px);
 }
 
 .status-icon {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .feedback-explanation {
   margin: 0;
-  font-size: clamp(11px, 0.6vw + 0.45vh, 13px);
-  line-height: 1.4;
+  font-size: clamp(10px, 0.5vw + 0.35vh, 11.5px);
+  line-height: 1.35;
   color: var(--sigma-ink);
 }
 
+/* Action buttons in feedback: fit side-by-side in 1 line */
 .feedback-action-bar {
   display: flex;
-  flex-direction: column;
-  gap: clamp(4px, 0.6vh, 8px);
+  flex-direction: row;
+  gap: clamp(4px, 0.6vw, 8px);
   margin-top: 2px;
 }
 
-.btn-action-continue {
+.btn-action-continue,
+.btn-action-retry {
+  flex: 1;
   cursor: pointer;
-  background: var(--sigma-ink);
-  color: var(--sigma-white);
   border: 2px solid var(--sigma-ink);
   box-shadow: 2px 2px 0 var(--sigma-copper);
-  padding: clamp(7px, 1vh, 12px) clamp(10px, 1.2vw, 16px);
-  font-family: var(--font-pixel);
-  font-size: clamp(9.5px, 0.55vw + 0.4vh, 11.5px);
-  line-height: 1.35;
+  padding: clamp(4px, 0.6vh, 8px) 8px;
+  font-size: clamp(9px, 0.5vw + 0.3vh, 10.5px);
+  line-height: 1.25;
   text-align: center;
   transition: transform 0.1s ease;
-  min-height: clamp(34px, 4.2vh, 44px);
+  min-height: clamp(28px, 3.6vh, 34px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.btn-action-continue {
+  background: var(--sigma-ink);
+  color: var(--sigma-white);
+  font-family: var(--font-pixel);
 }
 
 .btn-action-continue:hover {
@@ -1405,17 +1442,14 @@
 }
 
 .btn-action-retry {
-  cursor: pointer;
   background: var(--sigma-white);
   color: var(--sigma-ink);
-  border: 2px solid var(--sigma-ink);
-  box-shadow: 2px 2px 0 var(--sigma-ink);
-  padding: clamp(5px, 0.8vh, 8px) clamp(8px, 1vw, 12px);
   font-weight: 700;
-  font-size: clamp(10.5px, 0.55vw + 0.4vh, 12px);
-  text-align: center;
-  transition: background 0.15s ease;
-  min-height: clamp(28px, 3.6vh, 36px);
+  box-shadow: 2px 2px 0 var(--sigma-ink);
+}
+
+.btn-action-retry:hover {
+  background: var(--sigma-clay);
 }
 
 .btn-action-retry:hover {

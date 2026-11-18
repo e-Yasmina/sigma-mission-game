@@ -364,7 +364,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
       retryBtn: '↺ Retry this challenge',
       continueNext: 'Continue to Next Challenge ▶',
       continueBilan: 'Proceed to Final Verdict ▶',
-      continueAnyway: 'Proceed to Next Challenge ▶',
+      continueAnyway: 'Next Challenge ▶',
     },
     bilan: {
       badge: 'OFFICIAL EXPERT AUDIT · SCREEN 10/10',
