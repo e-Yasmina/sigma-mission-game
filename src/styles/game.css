@@ -504,8 +504,10 @@
   background: var(--sigma-white);
   border: 2px solid var(--sigma-ink);
   box-shadow: 2px 2px 0 var(--sigma-ink);
-  padding: clamp(5px, 0.8vh, 10px) clamp(8px, 1vw, 14px);
-  max-width: 290px;
+  padding: clamp(6px, 0.9vh, 10px) clamp(10px, 1vw, 14px);
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
   font-size: clamp(10.5px, 0.55vw + 0.45vh, 12.5px);
   line-height: 1.35;
   text-align: left;
@@ -1096,8 +1098,8 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(10px, 1.4vw, 20px);
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.88fr);
+  gap: clamp(12px, 1.6vw, 24px);
   align-items: stretch;
   overflow: hidden;
 }
@@ -1237,21 +1239,34 @@
   border-style: dashed;
 }
 
-/* Challenge Feedback Panel */
+/* Challenge Feedback Panel: Centered vertically and horizontally */
 .challenge-feedback-panel {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(6px, 1vh, 12px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.4vh, 16px);
   overflow-y: auto;
+  padding: clamp(6px, 1vh, 12px) clamp(8px, 1vw, 16px);
+  box-sizing: border-box;
 }
 
+/* Bulletproof flexbox centering that gracefully scrolls when overflowing */
+.challenge-feedback-panel::before,
+.challenge-feedback-panel::after {
+  content: '';
+  margin: auto;
+}
+
+/* Helper Toggles: Stacked buttons under each other */
 .helper-toggles {
   display: flex;
-  flex-direction: row;
-  gap: clamp(6px, 0.8vw, 10px);
+  flex-direction: column;
+  gap: clamp(6px, 0.8vh, 8px);
+  width: 100%;
+  max-width: 340px;
   flex-shrink: 0;
 }
 
@@ -1259,31 +1274,49 @@
   cursor: pointer;
   background: var(--sigma-paper);
   border: 2px solid var(--sigma-ink);
-  padding: clamp(5px, 0.8vh, 8px) 8px;
-  font-size: clamp(9.5px, 0.5vw + 0.4vh, 11.5px);
+  box-shadow: 2px 2px 0 var(--sigma-ink);
+  padding: clamp(6px, 0.8vh, 10px) clamp(10px, 1vw, 14px);
+  font-size: clamp(10px, 0.55vw + 0.35vh, 11.5px);
   font-weight: 700;
   text-align: center;
   color: var(--sigma-ink);
-  transition: background 0.15s ease;
-  min-height: clamp(28px, 3.8vh, 36px);
-  flex: 1;
+  transition: background 0.15s ease, transform 0.1s ease;
+  min-height: clamp(32px, 4vh, 38px);
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-.btn-helper:hover,
-.btn-helper.is-active {
+.btn-helper:hover {
   background: var(--sigma-blush);
+  transform: translate(-1px, -1px);
+}
+
+.btn-helper:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--sigma-ink);
+}
+
+.btn-helper.is-active {
+  background: var(--sigma-clay);
+  color: var(--sigma-ink);
 }
 
 .hint-card,
 .why-card {
+  width: 100%;
+  max-width: 340px;
   background: var(--sigma-white);
   border: 2px solid var(--sigma-ink);
   box-shadow: 2px 2px 0 var(--sigma-ink);
-  padding: clamp(6px, 1vh, 10px) clamp(8px, 1vw, 12px);
+  padding: clamp(6px, 1vh, 10px) clamp(10px, 1vw, 14px);
   font-size: clamp(10.5px, 0.55vw + 0.45vh, 12px);
   line-height: 1.4;
-  max-height: clamp(80px, 14vh, 150px);
+  max-height: clamp(85px, 15vh, 160px);
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .hint-tag,
@@ -1303,6 +1336,8 @@
 
 /* Feedback Live Card */
 .feedback-live-region {
+  width: 100%;
+  max-width: 340px;
   flex-shrink: 0;
 }
 
