@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Challenge, ChoiceKey, SupportedLanguage } from '../types';
 import { UI_TRANSLATIONS } from '../data/uiTranslations';
 import { RobotInspector, RobotMood } from './RobotInspector';
+import { EvidenceScanner } from './EvidenceScanner';
 
 interface ScreenChallengeProps {
   challenge: Challenge;
@@ -21,6 +22,7 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
   const [selectedChoice, setSelectedChoice] = useState<ChoiceKey | null>(savedAnswer);
   const [showHint, setShowHint] = useState<boolean>(false);
   const [showWhy, setShowWhy] = useState<boolean>(false);
+  const [showEvidenceScanner, setShowEvidenceScanner] = useState<boolean>(challenge.id === 'D7');
 
   const t = UI_TRANSLATIONS[lang].challenge;
 
@@ -60,6 +62,13 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
     robotSpeech = t.robotHint;
   }
 
+  if (showEvidenceScanner) {
+    robotMood = 'thinking';
+    robotSpeech = lang === 'fr'
+      ? 'Je scanne les pièces du dossier avant notre verdict.'
+      : 'I’m scanning the case exhibits before we reach a verdict.';
+  }
+
   const optionKeys: ChoiceKey[] = ['A', 'B', 'C', 'D'];
   const robotSize = hasAnswered ? 76 : 95;
 
@@ -93,8 +102,23 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
           </div>
 
           <div className="question-card">
-            <span className="card-micro-label">{t.decisionLabel}</span>
-            <h3 className="question-text">{challenge.question}</h3>
+            {showEvidenceScanner ? (
+              <>
+                <span className="card-micro-label">
+                  {lang === 'fr' ? 'ÉTAPE D’ENQUÊTE' : 'INVESTIGATION STEP'}
+                </span>
+                <h3 className="question-text">
+                  {lang === 'fr'
+                    ? 'Scannez les preuves avant de rendre votre avis.'
+                    : 'Scan the evidence before giving your verdict.'}
+                </h3>
+              </>
+            ) : (
+              <>
+                <span className="card-micro-label">{t.decisionLabel}</span>
+                <h3 className="question-text">{challenge.question}</h3>
+              </>
+            )}
           </div>
         </section>
 
@@ -102,10 +126,13 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
         <div className="challenge-zone-row">
           {/* ZONE 2: INTERACTION — Propositions & Choix de réponse */}
           <section className="challenge-zone-interaction" aria-label="Zone Interaction : choix de réponse">
-            <fieldset className="options-fieldset">
-              <legend className="sr-only">{t.optionsLegend}</legend>
-              <div className="options-list">
-                {optionKeys.map((key) => {
+            {showEvidenceScanner ? (
+              <EvidenceScanner lang={lang} onContinue={() => setShowEvidenceScanner(false)} />
+            ) : (
+              <fieldset className="options-fieldset">
+                <legend className="sr-only">{t.optionsLegend}</legend>
+                <div className="options-list">
+                  {optionKeys.map((key) => {
                   const isSelected = selectedChoice === key;
                   const optionText = challenge.options[key];
 
@@ -135,9 +162,10 @@ export const ScreenChallenge: React.FC<ScreenChallengeProps> = ({
                       </span>
                     </button>
                   );
-                })}
-              </div>
-            </fieldset>
+                  })}
+                </div>
+              </fieldset>
+            )}
           </section>
 
           {/* ZONE 3: COMPANION — Inspecteur Sigma & Assistance (Anchored to Interaction) */}

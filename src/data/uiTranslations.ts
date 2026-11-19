@@ -93,6 +93,12 @@ export interface UiStrings {
     replayBtn: string;
     reviewDossierBtn: string;
     reviewGlossaryBtn: string;
+    leftSlide1: string;
+    leftSlide2: string;
+    rightSlide1: string;
+    rightSlide2: string;
+    carouselPrev: string;
+    carouselNext: string;
   };
   glossaryModal: {
     eyebrow: string;
@@ -247,6 +253,12 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
       replayBtn: '↺ Rejouer la Mission SIGMA',
       reviewDossierBtn: '📋 Revoir le dossier de recherche',
       reviewGlossaryBtn: '📖 Parcourir le glossaire',
+      leftSlide1: '1/2 · Avis officiel',
+      leftSlide2: '2/2 · Acquis méthodologiques',
+      rightSlide1: '1/2 · Transfert & Synthèse',
+      rightSlide2: '2/2 · Débriefing & Actions',
+      carouselPrev: 'Carte précédente',
+      carouselNext: 'Carte suivante',
     },
     glossaryModal: {
       eyebrow: 'AIDE MÉTHODOLOGIQUE',
@@ -399,6 +411,12 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, UiStrings> = {
       replayBtn: '↺ Replay Mission SIGMA',
       reviewDossierBtn: '📋 Review Research Dossier',
       reviewGlossaryBtn: '📖 Browse Glossary',
+      leftSlide1: '1/2 · Official Verdict',
+      leftSlide2: '2/2 · Key Takeaways',
+      rightSlide1: '1/2 · Transfer & Notes',
+      rightSlide2: '2/2 · Debrief & Actions',
+      carouselPrev: 'Previous card',
+      carouselNext: 'Next card',
     },
     glossaryModal: {
       eyebrow: 'METHODOLOGICAL SUPPORT',
